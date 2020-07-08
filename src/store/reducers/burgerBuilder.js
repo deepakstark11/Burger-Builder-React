@@ -1,10 +1,11 @@
 import * as actionTypes from "../actions/actionTypes";
-import { updateObject } from "../utility";
+import { updateObject } from "../../shared/utility";
 
 const initialState = {
   ingrediants: null,
   totalPrice: 4,
   error: false,
+  building: false,
 };
 
 const INGREDIANT_PRICES = {
@@ -27,6 +28,7 @@ const reducer = (state = initialState, action) => {
       const updatedState = {
         ingrediants: updatedIngrediants,
         totalPrice: state.totalPrice + INGREDIANT_PRICES[action.ingrediantName],
+        building: true,
       };
       return updateObject(state, updatedState);
 
@@ -38,6 +40,7 @@ const reducer = (state = initialState, action) => {
       const updatedSta = {
         ingrediants: updatedIngs,
         totalPrice: state.totalPrice - INGREDIANT_PRICES[action.ingrediantName],
+        building: true,
       };
       return updateObject(state, updatedSta);
 
@@ -51,6 +54,7 @@ const reducer = (state = initialState, action) => {
         },
         totalPrice: 4,
         error: false,
+        building: false,
       });
 
     case actionTypes.FETCH_INGREDIANTS_FAILED:
